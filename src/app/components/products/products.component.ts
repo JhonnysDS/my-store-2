@@ -12,16 +12,19 @@ import { ProductsService } from 'src/app/services/products.service';
 export class ProductsComponent implements OnInit {
   myShoppingCart: Product[] = [];
   products: Product[] = [];
+  today = new Date();
+  date = new Date(2021,1,21);
+  showProductDetail= false;
 
   constructor(
     private storeService: StoreService,
-    private productService: ProductsService,
+    private productsService: ProductsService,
   ) { 
     this.myShoppingCart = this.storeService.getmyShoppingCart()
   }
 
   ngOnInit(): void {
-    this.productService.getAllProducts()
+    this.productsService.getAllProducts()
     .subscribe(data => {
       this.products = data;
     })
@@ -33,4 +36,14 @@ export class ProductsComponent implements OnInit {
     this.total = this.storeService.getTotal();
   }
 
+  toggleProductDetail(){
+    this.showProductDetail = !this.showProductDetail
+  }
+
+  onShowDetail(id: string){
+    this.productsService.getProduct(id)
+    .subscribe(data => {
+      console.log('product', data);
+    })
+  }
 }

@@ -12,9 +12,12 @@ export class ProductComponent implements OnInit {
   @Input() product: Product = {
     id: '',
     price: 0,
-    image: '',
+    images: [],
     title: '',
-    category: '',
+    category: {
+      id: '',
+      name: ''
+  },
     description: ''
   };
 
@@ -22,10 +25,16 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
   @Output() addedProduct = new EventEmitter<Product>();
+  @Output() showProduct = new EventEmitter<string>();
   onAddToCart(){
     this.addedProduct.emit(this.product);
    
+  }
+
+  onShowDetail(){
+    this.showProduct.emit(this.product.id);
   }
 
   
