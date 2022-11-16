@@ -1,7 +1,7 @@
 import { isNgTemplate } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 
-import { CreateProductDTO, Product } from '../../models/product.model';
+import { CreateProductDTO, Product, UpdateProductDTO } from '../../models/product.model';
 import { StoreService } from 'src/app/services/store.service';
 import { ProductsService } from 'src/app/services/products.service';
 import { id } from 'date-fns/locale';
@@ -73,5 +73,20 @@ export class ProductsComponent implements OnInit {
     .subscribe(data => {
       this.products.unshift(data);
     });
+  }
+
+  updateProduct(){
+    const changes: UpdateProductDTO = {
+      title: 'New title',
+      description: 'New description',
+      price: 250,
+    }
+    const id = this.productChosen.id;
+    this.productsService.update(id, changes)
+    .subscribe(data =>{
+      const productIndex = this.products.findIndex(item => item.id === id)
+      this.products[productIndex]= data;
+    })
+
   }
 }
