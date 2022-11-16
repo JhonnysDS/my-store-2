@@ -1,9 +1,10 @@
 import { isNgTemplate } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 
-import { Product } from '../../models/product.model';
+import { CreateProductDTO, Product } from '../../models/product.model';
 import { StoreService } from 'src/app/services/store.service';
 import { ProductsService } from 'src/app/services/products.service';
+import { id } from 'date-fns/locale';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -43,7 +44,34 @@ export class ProductsComponent implements OnInit {
   onShowDetail(id: string){
     this.productsService.getProduct(id)
     .subscribe(data => {
-      console.log('product', data);
+      this.toggleProductDetail();
+      this.productChosen = data;
     })
+  }
+
+  productChosen: Product = {
+    id: '',
+    price: 0,
+    images: [],
+    title: '',
+    category: {
+      id: '',
+      name: ''
+    },
+    description: ''
+  }
+
+  createNewProduct(){
+    const product: CreateProductDTO ={
+      title: 'Producto Nuevo JD',
+      description: 'Bla Vla Bla',
+      images: ['https://placeimg.com/640/480/any?random=$%7BMath.random()%7D'],
+      price: 150,
+      categoryId: 2,
+    }
+    this.productsService.create(product)
+    .subscribe(data => {
+      this.products.unshift(data);
+    });
   }
 }
