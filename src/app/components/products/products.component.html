@@ -10,6 +10,8 @@
 <p> {{ today | timeAgo}}</p>
 
 <button (click)="createNewProduct()"> Create </button>
+<button (click)="onShowDetail('3545')"> more details fake</button>
+
 <div class="products--grid">
   <app-product [product]="product" *ngFor="let product of products" (addedProduct)="onAddToShoppingCart($event)"
     (showProduct)="onShowDetail($event)"></app-product>
@@ -18,7 +20,8 @@
 
 
 <div class="product-detail" [class.active]="showProductDetail">
-  
+  <p>{{statusDetail}}</p>
+
   <div *ngIf="productChosen">
     <button (click)="toggleProductDetail()">close</button>
     <h1>{{ productChosen.title }}</h1>
