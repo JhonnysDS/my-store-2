@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpParams, HttpErrorResponse, HttpStatusCode } from '@angular/common/Http';
 import { Product, CreateProductDTO, UpdateProductDTO } from '../models/product.model';
-import { catchError, retry, } from 'rxjs/operators';
+import { catchError, map, retry, } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
-import { throwError } from 'rxjs';
+import { throwError, zip } from 'rxjs';
 
 
 @Injectable({
@@ -27,7 +27,7 @@ export class ProductsService {
     }
     return this.http.get<Product[]>(this.apiUrl, {params})
     .pipe(
-      retry(3)
+      retry(3),
     );
   }
 
@@ -68,7 +68,21 @@ export class ProductsService {
     params: {limit, offset}
   })
   .pipe(
-    retry(2)
+    retry(2),
+    map(products => products.map(item => {
+      return{
+        ...item,
+        taxes: .19 * item.price
+      }
+    }))
   );;
   }
+
+  fetchReadAndUpdate(id: string, dto: UpdateProductDTO){
+    return zip(
+      this.getProduct(id),
+      this.update(id, dto)
+    )
+  }
+
 }
