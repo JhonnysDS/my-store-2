@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AuthService } from './services/auth.service';
 import { UsersService } from './services/users.service';
 
 @Component({
@@ -10,9 +9,9 @@ import { UsersService } from './services/users.service';
 export class AppComponent {
   imgParent = '';
   showImg = true;
+  token = '';
 
   constructor(
-    private authService: AuthService,
     private usersService: UsersService
   ){}
 
@@ -33,13 +32,6 @@ export class AppComponent {
     })
     .subscribe(rta=>{
       console.log(rta)
-    })
-  }
-
-  login(){
-    this.authService.login('kalel@mail.com','1212' )
-    .subscribe(rta=>{
-      console.log(rta.access_token)
     })
   }
 }
