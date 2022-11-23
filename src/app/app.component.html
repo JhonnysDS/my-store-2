@@ -3,6 +3,12 @@
 <p>
     <a href="./../assets/files/texto.txt" download>Descargar</a>
 </p>
+<button (click)="downloadPdf()" >Descargar PDF</button>
+
+<p>
+    <input type="file" (change)="onUpload($event)">
+    <img *ngIf="imgRta" [src]="imgRta" alt="">
+</p>
 
 <app-products></app-products>
 <!-- <p><input type="text" [(ngModel)]="imgParent" /></p>
