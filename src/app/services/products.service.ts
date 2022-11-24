@@ -12,12 +12,21 @@ import { checkTime  } from '../interceptors/time.interceptor';
 })
 export class ProductsService {
 
-  private apiUrl = `${environment.API_URL}/api/products`;
+  private apiUrl = `${environment.API_URL}/api`;
   
   constructor(
     private http: HttpClient,
 
   ) { }
+
+  getByCategory(categoryId: string, limit?:number, offset?: number){
+    let params = new HttpParams();
+    if (limit && offset){
+      params = params.set('limit', limit);
+      params = params.set('offset', limit);
+    }
+    return this.http.get<Product[]>(`${this.apiUrl}/categories/${categoryId}/products`, {params})
+  }
 
   getAllProducts(limit?:number, offset?: number){
     let params = new HttpParams();
@@ -25,14 +34,14 @@ export class ProductsService {
       params = params.set('limit', limit);
       params = params.set('offset', limit);
     }
-    return this.http.get<Product[]>(this.apiUrl, {params, context: checkTime()})
+    return this.http.get<Product[]>(`${this.apiUrl}/products`, {params, context: checkTime()})
     .pipe(
       retry(3),
     );
   }
 
   getProduct(id: string){
-    return this.http.get<Product>(`${this.apiUrl}/${id}`)
+    return this.http.get<Product>(`${this.apiUrl}/products/${id}`)
     .pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === HttpStatusCode.Conflict){
@@ -51,15 +60,15 @@ export class ProductsService {
   }
 
   create(dto: CreateProductDTO){
-    return this.http.post<Product>(this.apiUrl, dto);
+    return this.http.post<Product>(`${this.apiUrl}/products`, dto);
   }
 
   update(id: string, dto: UpdateProductDTO){
-    return this.http.put<Product>(`${this.apiUrl}/${id}`, dto);
+    return this.http.put<Product>(`${this.apiUrl}/products/${id}`, dto);
   }
 
   delete(id: string){
-    return this.http.delete<Boolean>(`${this.apiUrl}/${id}`)
+    return this.http.delete<Boolean>(`${this.apiUrl}/products/${id}`)
   }
 
 

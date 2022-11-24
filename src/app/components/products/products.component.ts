@@ -1,23 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { CreateProductDTO, Product, UpdateProductDTO } from '../../models/product.model';
 import { StoreService } from 'src/app/services/store.service';
 import { ProductsService } from 'src/app/services/products.service';
 import { switchMap } from 'rxjs/operators';
-import { zip } from 'rxjs';
+
+
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent {
   myShoppingCart: Product[] = [];
-  products: Product[] = [];
+ @Input() products: Product[] = [];
+ @Output() loadMore = new EventEmitter();
+
   today = new Date();
   date = new Date(2021,1,21);
   showProductDetail= false;
-  limit= 10;
-  offset= 0;
   statusDetail: 'loading' | 'success' | 'error' | 'init' = 'init';
 
   constructor(
@@ -25,13 +26,6 @@ export class ProductsComponent implements OnInit {
     private productsService: ProductsService,
   ) { 
     this.myShoppingCart = this.storeService.getmyShoppingCart()
-  }
-
-  ngOnInit(): void {
-    this.productsService.getProductsByPage(10, 0)
-    .subscribe(data => {
-      this.products = data;
-    })
   }
   total = 0;
 
@@ -107,13 +101,15 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-  loadMore(){
-    this.productsService.getProductsByPage(this.limit, this.offset)
-    .subscribe(data => {
-      this.products = this.products.concat(data);
-      this.offset += this.limit;
-    })
-  }
+  // loadMore(){
+  //   this.productsService.getProductsByPage(this.limit, this.offset)
+  //   .subscribe(data => {
+  //     this.products = this.products.concat(data);
+  //     this.offset += this.limit;
+  //   })
+  // }
+
+
 
   readAndUpdate(id: string){
     this.productsService.getProduct(id)
@@ -130,6 +126,8 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-
+  onLoadMore(){
+    this.loadMore.emit();
+  }
 }
 
