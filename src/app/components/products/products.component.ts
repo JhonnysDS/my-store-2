@@ -14,6 +14,11 @@ import { switchMap } from 'rxjs/operators';
 export class ProductsComponent {
   myShoppingCart: Product[] = [];
  @Input() products: Product[] = [];
+ @Input() set productId(id: string | null){
+  if(id){
+    this.onShowDetail(id)
+  }
+ }
  @Output() loadMore = new EventEmitter();
 
   today = new Date();
@@ -40,7 +45,9 @@ export class ProductsComponent {
 
   onShowDetail(id: string){
     this.statusDetail = 'loading';
-    this.toggleProductDetail();
+    if(!this.showProductDetail){
+      this.showProductDetail = true;
+    }
     this.productsService.getProduct(id)
     .subscribe(data => {
       this.productChosen = data;
