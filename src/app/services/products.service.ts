@@ -21,22 +21,28 @@ export class ProductsService {
 
   getByCategory(categoryId: string, limit?:number, offset?: number){
     let params = new HttpParams();
-    if (limit && offset){
+    if (limit && offset != null){
       params = params.set('limit', limit);
       params = params.set('offset', limit);
     }
     return this.http.get<Product[]>(`${this.apiUrl}/categories/${categoryId}/products`, {params})
   }
 
-  getAllProducts(limit?:number, offset?: number){
+  getAllProducts(limit?: number, offset?: number) {
     let params = new HttpParams();
-    if (limit && offset){
+    if (limit && offset != null) {
       params = params.set('limit', limit);
-      params = params.set('offset', limit);
+      params = params.set('offset', offset);
     }
-    return this.http.get<Product[]>(`${this.apiUrl}/products`, {params, context: checkTime()})
+    return this.http.get<Product[]>(`${this.apiUrl}/products`, { params, context: checkTime() })
     .pipe(
       retry(3),
+      map(products => products.map(item => {
+        return {
+          ...item,
+          taxes: .19 * item.price
+        }
+      }))
     );
   }
 
