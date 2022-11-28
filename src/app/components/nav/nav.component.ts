@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { StoreService } from 'src/app/services/store.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user.model';
+import { CategoriesService } from 'src/app/services/categories.service';
+import { Category } from 'src/app/models/product.model';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -11,9 +13,12 @@ export class NavComponent implements OnInit {
   counter = 0;
   token = '';
   profile: User |null = null;
+  categories: Category[] = []
+
   constructor(
     private storeService: StoreService,
     private authService: AuthService,
+    private categoriesService: CategoriesService
 
   ) { }
 
@@ -21,6 +26,8 @@ export class NavComponent implements OnInit {
     this.storeService.myCart$.subscribe(products => {
       this.counter = products.length
     })
+
+    this.getAllCategories();
   }
   activeMenu = false;
   
@@ -45,6 +52,15 @@ export class NavComponent implements OnInit {
       this.token = rta.access_token;
       console.log(rta)
     })
+  }
+
+  getAllCategories(){
+    this.categoriesService.getAll()
+    .subscribe(data => {
+      this.categories = data
+    }
+
+    )
   }
 
 }
