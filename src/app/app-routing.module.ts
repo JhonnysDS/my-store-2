@@ -9,53 +9,66 @@ import { RegisterComponent } from './website/pages/register/register.component';
 import { RecoveryComponent } from './website/pages/recovery/recovery.component';
 import { ProfileComponent } from './website/pages/profile/profile.component';
 import { ProductDetailComponent } from './website/pages/product-detail/product-detail.component';
-
+import { LayoutComponent } from './website/components/layout/layout.component';
 const routes: Routes = [
+  // {
+  //   path: '',
+  //   redirectTo: 'home',
+  //   pathMatch: 'full'
+  // },
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
-  {
-    path: 'home',
-    component: HomeComponent
-  },
-  {
-    path: 'category/:id',
-    component: CategoryComponent
-  },
-  {
-    path: 'product/:id',
-    component: ProductDetailComponent
-  },
-  {
-    path: 'notFound',
-    component: NotFoundComponent
-  },
-  {
-    path: 'myCart',
-    component: MyCartComponent
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'register',
-    component: RegisterComponent
-  },
-  {
-    path: 'recovery',
-    component: RecoveryComponent
-  },
-  {
-    path: 'profile',
-    component: ProfileComponent
+    component: LayoutComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full'
+      },
+      {
+        path: 'home',
+        component: HomeComponent
+      },
+      {
+        path: 'category/:id',
+        component: CategoryComponent
+      },
+      {
+        path: 'product/:id',
+        component: ProductDetailComponent
+      },
+      {
+        path: 'notFound',
+        component: NotFoundComponent
+      },
+      {
+        path: 'myCart',
+        component: MyCartComponent
+      },
+      {
+        path: 'login',
+        component: LoginComponent
+      },
+      {
+        path: 'register',
+        component: RegisterComponent
+      },
+      {
+        path: 'recovery',
+        component: RecoveryComponent
+      },
+      {
+        path: 'profile',
+        component: ProfileComponent
+      },
+      
+    ]
   },
   {
     path: '**',
     component: NotFoundComponent
   }
+  
 ];
 
 @NgModule({
