@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { NotFoundComponent } from './website/pages/not-found/not-found.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 const routes: Routes = [
@@ -10,6 +10,10 @@ const routes: Routes = [
   //   redirectTo: 'home',
   //   pathMatch: 'full'
   // },
+  {
+    path: '',
+    loadChildren: () => import('./website/website.module').then(m => m.WebsiteModule)
+  },
   {
     path: 'cms',
     loadChildren: () => import('./cms/cms.module').then(m => m.CmsModule)

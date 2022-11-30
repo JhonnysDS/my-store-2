@@ -2,16 +2,19 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/Http'
-import { SwiperModule } from 'swiper/angular';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 import { TimeInterceptor } from './interceptors/time.interceptor';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 
 @NgModule({
   declarations: [
+    AppComponent,
+    NotFoundComponent
 
   ],
   imports: [
@@ -19,7 +22,6 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    SwiperModule
   ],
   providers: [
     {
