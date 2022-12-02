@@ -41,4 +41,8 @@ export class AuthService {
   getProfile(){
     return this.http.get<User>(`${this.apiURL}/profile`);
   }
+
+  logout(){
+    this.tokenService.removeToken()
+  }
 }

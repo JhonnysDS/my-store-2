@@ -35,11 +35,15 @@
       </nav>
       <div class="info">
         <div class="account">
-          <button (click)="createUser()">Registrar Usuario</button>
-
-          <button *ngIf="!token; else elseBlock" (click)="login()">Login</button>
+          
+          <div *ngIf="!token; else elseBlock"> 
+            <button (click)="login()">Login</button>
+            <button (click)="createUser()">Registrar Usuario</button>
+          </div>
+          
           <ng-template #elseBlock >
             <a routerLink="/profile">Ir al perfil</a>
+            <button (click)="logout()">Logout</button>
           </ng-template>
         </div>
         <div>

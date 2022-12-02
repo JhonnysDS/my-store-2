@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { StoreService } from 'src/app/services/store.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user.model';
@@ -21,7 +22,8 @@ export class NavComponent implements OnInit {
     private storeService: StoreService,
     private authService: AuthService,
     private categoriesService: CategoriesService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private router: Router
 
   ) { }
 
@@ -76,6 +78,12 @@ export class NavComponent implements OnInit {
     .subscribe(rta=>{
       console.log(rta)
     })
+  }
+
+  logout(){
+    this.authService.logout();
+    this.profile = null;
+    this.router.navigate(['/home'])
   }
 
 }
