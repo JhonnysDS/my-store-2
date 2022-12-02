@@ -4,6 +4,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user.model';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { Category } from 'src/app/models/product.model';
+
+import { UsersService } from 'src/app/services/users.service';
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -18,7 +20,8 @@ export class NavComponent implements OnInit {
   constructor(
     private storeService: StoreService,
     private authService: AuthService,
-    private categoriesService: CategoriesService
+    private categoriesService: CategoriesService,
+    private usersService: UsersService
 
   ) { }
 
@@ -61,6 +64,18 @@ export class NavComponent implements OnInit {
     }
 
     )
+  }
+
+  createUser(){
+    this.usersService.create({
+      name: 'kalel',
+      email: 'kalel@mail.com',
+      password: '1212'
+
+    })
+    .subscribe(rta=>{
+      console.log(rta)
+    })
   }
 
 }

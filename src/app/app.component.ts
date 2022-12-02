@@ -25,17 +25,8 @@ export class AppComponent {
     this.showImg = !this.showImg;
   }
 
-  createUser(){
-    this.usersService.create({
-      name: 'kalel',
-      email: 'kalel@mail.com',
-      password: '1212'
+  
 
-    })
-    .subscribe(rta=>{
-      console.log(rta)
-    })
-  }
   downloadPdf(){
     this.filesService.getFile('myPDF', 'https://young-sands-07814.herokuapp.com/api/files/dummy.pdf', 'application/pdf' )
     .subscribe()
