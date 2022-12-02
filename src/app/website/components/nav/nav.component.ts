@@ -70,8 +70,8 @@ export class NavComponent implements OnInit {
     this.usersService.create({
       name: 'kalel',
       email: 'kalel@mail.com',
-      password: '1212'
-
+      password: '1212',
+      role: 'customer'
     })
     .subscribe(rta=>{
       console.log(rta)

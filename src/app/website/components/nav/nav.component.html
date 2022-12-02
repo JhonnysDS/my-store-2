@@ -38,7 +38,9 @@
           <button (click)="createUser()">Registrar Usuario</button>
 
           <button *ngIf="!token; else elseBlock" (click)="login()">Login</button>
-          <ng-template #elseBlock >{{profile?.email}}</ng-template>
+          <ng-template #elseBlock >
+            <a routerLink="/profile">Ir al perfil</a>
+          </ng-template>
         </div>
         <div>
           <a href="">
