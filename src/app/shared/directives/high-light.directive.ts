@@ -12,7 +12,7 @@ export class HighLightDirective {
     this.element.nativeElement.style.backgroundColor = '';
   }
   constructor(
-    private element: ElementRef,
+    private element: ElementRef
   ) { 
     //this.element.nativeElement.style.backgroundColor = '#33FFFF';
   }
