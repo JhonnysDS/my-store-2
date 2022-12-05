@@ -21,8 +21,10 @@ export class AdminGuard implements CanActivate {
       return this.authService.user$
       .pipe(
         map(user => {
-          if(user?.role === 'admin') {
+          if(user?.role == 'admin') {
+            console.log(user)
             return true;
+            
           }
           else{
             this.router.navigate(['home'])

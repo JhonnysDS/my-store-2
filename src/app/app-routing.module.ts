@@ -20,7 +20,7 @@ const routes: Routes = [
   },
   {
     path: 'cms',
-    canActivate: ['AdminGuard'],
+    canActivate: [AdminGuard],
     loadChildren: () => import('./cms/cms.module').then(m => m.CmsModule)
   },
   {
