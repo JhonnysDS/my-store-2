@@ -4,4 +4,6 @@
     <p>name: {{user.name}}</p>
     <p>Email: {{user.email}}</p>
     <p>Role: {{user.role}}</p>
+    <br>
+    <a *ngIf="user.role === 'admin' " routerLink="/cms">Ir al cms</a>
 </div>
