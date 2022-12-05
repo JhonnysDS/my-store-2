@@ -4,7 +4,7 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor
-} from '@angular/common/Http';
+} from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { TokenService } from '../services/token.service';

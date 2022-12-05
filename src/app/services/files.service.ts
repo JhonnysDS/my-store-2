@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/Http';
+import { HttpClient } from '@angular/common/http';
 
 import { map, tap } from 'rxjs/operators';
 import {saveAs} from 'file-saver';
