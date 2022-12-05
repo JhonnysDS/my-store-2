@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { TokenService } from '../services/token.service';
+import { map } from 'rxjs/operators';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,18 +13,29 @@ import { TokenService } from '../services/token.service';
 export class AuthGuard implements CanActivate {
 constructor (
   private tokenService: TokenService,
-  private router: Router
+  private router: Router,
+  private authService: AuthService
 ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const token = this.tokenService.getToken()
-    if(!token){
-      this.router.navigate(['home'])
-      return false
-    }
-      return true;
+    // if(!token){
+    //   this.router.navigate(['home'])
+    //   return false
+    // }
+    //   return true;
+    return this.authService.user$
+    .pipe(
+      map(user => {
+        if(!user) {
+          this.router.navigate(['/home']);
+          return false;
+        }
+        return true;
+      })
+    )
   }
   
 }

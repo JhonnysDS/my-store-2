@@ -33,6 +33,14 @@ export class NavComponent implements OnInit {
     })
 
     this.getAllCategories();
+
+    //Pendiente del estado del usuario en todas las vistas
+    this.authService.user$
+    .subscribe(data => {
+      this.profile = data
+    }
+
+    )
   }
   activeMenu = false;
   
@@ -51,12 +59,19 @@ export class NavComponent implements OnInit {
     })
   }
 
-  login(){
-    this.authService.login('kalel@mail.com','1212' )
-    .subscribe(rta=>{
-      this.token = rta.access_token;
-      console.log(rta)
-    })
+  // login(){
+  //   this.authService.login('kalel@mail.com','1212' )
+  //   .subscribe(rta=>{
+  //     this.token = rta.access_token;
+  //     console.log(rta)
+  //   })
+  // }
+
+  login() {
+    this.authService.loginAndGet('kalel@mail.com','1212' )
+    .subscribe(() => {
+      this.router.navigate(['/profile']);
+    });
   }
 
   getAllCategories(){

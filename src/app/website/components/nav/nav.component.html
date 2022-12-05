@@ -36,7 +36,7 @@
       <div class="info">
         <div class="account">
           
-          <div *ngIf="!token; else elseBlock"> 
+          <div *ngIf="!profile; else elseBlock"> 
             <button (click)="login()">Login</button>
             <button (click)="createUser()">Registrar Usuario</button>
           </div>
